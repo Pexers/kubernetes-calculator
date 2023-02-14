@@ -12,6 +12,9 @@ services:
       - 80:80
     links:  # Avoids to write hardcoded HTTP ports in calculator service
       - addition
+      - division
+      - multiplication
+      - subtraction
 
   addition:
     container_name: addition
@@ -23,3 +26,36 @@ services:
     image: pexers/addition
     ports:
       - 3000:80
+
+  division:
+    container_name: division
+    labels:
+      app: kubernetes-calculator
+    build:
+      context: services/division
+      dockerfile: Dockerfile
+    image: pexers/division
+    ports:
+      - 3001:80
+      
+  multiplication:
+    container_name: multiplication
+    labels:
+      app: kubernetes-calculator
+    build:
+      context: services/multiplication
+      dockerfile: Dockerfile
+    image: pexers/multiplication
+    ports:
+      - 3002:80
+      
+  subtraction:
+    container_name: subtraction
+    labels:
+      app: kubernetes-calculator
+    build:
+      context: services/subtraction
+      dockerfile: Dockerfile
+    image: pexers/subtraction
+    ports:
+      - 3003:80
