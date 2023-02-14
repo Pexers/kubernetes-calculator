@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  calculator:
+    container_name: calculator
+    labels:
+      app: kubernetes-calculator
+    build:
+      context: services/calculator
+      dockerfile: Dockerfile
+    image: pexers/calculator
+    ports:
+      - 80:80
+    links:  # Avoids to write hardcoded HTTP ports in calculator service
+      - addition
+
+  addition:
+    container_name: addition
+    labels:
+      app: kubernetes-calculator
+    build:
+      context: services/addition
+      dockerfile: Dockerfile
+    image: pexers/addition
+    ports:
+      - 3000:80
