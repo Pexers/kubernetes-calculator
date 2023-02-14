@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remainder-deployment
+  labels:
+    app: remainder-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: remainder-app
+  template:
+    metadata:
+      labels:
+        app: remainder-app
+    spec:
+      containers:
+        - name: remainder-app
+          image: pexers/remainder:latest
+          imagePullPolicy: Always   # Always pull the latest image from Docker Hub on start
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: remainder
+  labels:
+    app: remainder-app
+spec:
+  type: ClusterIP     # No external IP exposed
+  ports:
+    - protocol: TCP
+      port: 80          # The exposed port within the cluster
+      targetPort: 8080  # The actual port where the container is running
+  selector: 
+    app: remainder-app

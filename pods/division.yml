@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: division-deployment
+  labels:
+    app: division-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: division-app
+  template:
+    metadata:
+      labels:
+        app: division-app
+    spec:
+      containers:
+        - name: division-app
+          image: pexers/division:latest
+          imagePullPolicy: Always   # Always pull the latest image from Docker Hub on start
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: division
+  labels:
+    app: division-app
+spec:
+  type: ClusterIP     # No external IP exposed
+  ports:
+    - protocol: TCP
+      port: 80          # The exposed port within the cluster
+      targetPort: 8080  # The actual port where the container is running
+  selector: 
+    app: division-app

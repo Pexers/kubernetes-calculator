@@ -6,7 +6,10 @@ on:
 
   # Allows to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+env:
+  AZ_RESOURCE_GROUP: 'MyResourceGroup'
+  AZ_CLUSTER: 'my-aks-cluster'
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   npm-test:
@@ -37,3 +40,24 @@ jobs:
         docker compose push --quiet
     - name: Logout of Docker
       run: docker logout
+  deploy-to-aks:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/azure-cli:latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+    - name: Install kubectl
+      run: az aks install-cli
+    - name: Login in Azure & Save credentials
+      run: |
+        az login --tenant $AZ_TENANT_ID -u ${{ secrets.AZ_USER }} -p ${{ secrets.AZ_PWD }} --output none
+        az aks get-credentials --resource-group $AZ_RESOURCE_GROUP --name $AZ_CLUSTER
+    - name: Deploy application to Kubernetes
+      run: |
+        kubectl apply -f pods  # Applies all YAML files within the pods directory
+        kubectl rollout restart deploy
+        kubectl get pods
+        kubectl get services
+    - name: Logout of Azure
+      run: az logout
