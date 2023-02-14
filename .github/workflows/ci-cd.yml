@@ -51,7 +51,7 @@ jobs:
       run: az aks install-cli
     - name: Login in Azure & Save credentials
       run: |
-        az login --tenant ${{ secrets.AZ_TENANT_ID }} -u ${{ secrets.AZ_USER }} -p ${{ secrets.AZ_PWD }} --output none
+        az login --tenant ${{ secrets.AZ_TENANT_ID }} -u ${{ secrets.AZ_USER }} -p "${{ secrets.AZ_PWD }}" --output none
         az aks get-credentials --resource-group $AZ_RESOURCE_GROUP --name $AZ_CLUSTER
     - name: Deploy application to Kubernetes
       run: |
