@@ -19,7 +19,7 @@ spec:
         image: pexers/calculator:latest
         imagePullPolicy: Always   # Always pull the latest image from Docker Hub on start
         ports:
-        - containerPort: 80
+        - containerPort: 80       # The actual port where the container is running (=targetPort)
 ---
 apiVersion: v1
 kind: Service
@@ -31,7 +31,7 @@ spec:
   type: LoadBalancer  # Exposes an external IP to clients
   ports:
   - protocol: TCP
-    port: 80          # The exposed port within the cluster
-    targetPort: 80  # The actual port where the container is running
+    port: 80        # The exposed port within the cluster
+    targetPort: 80  # The actual port where the container is running (=containerPort)
   selector: 
     app: calculator-app
