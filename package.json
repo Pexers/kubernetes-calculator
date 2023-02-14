@@ -1,0 +1,10 @@
+{
+  "name": "kubernetes-calculator",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "mocha services/**/test/*.js"
+  },
+  "dependencies": {
+    "mocha": "10.2.0"
+  }
+}
