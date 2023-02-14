@@ -9,7 +9,7 @@ on:
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test:
+  npm-test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
@@ -22,3 +22,16 @@ jobs:
       run: |
         npm i
         npm run test
+  push-to-docker-hub:
+    runs-on: ubuntu-latest
+    container:
+      image: docker:latest
+    steps:
+    - name: Login to Docker
+      run: docker login --username ${{ secrets.DOCKER_USER }} --password ${{ secrets.DOCKER_PWD }}
+    - name: Build & Push services
+      run: |
+        docker compose build
+        docker compose push --quiet
+    - name: Logout of Docker
+      run: docker logout
