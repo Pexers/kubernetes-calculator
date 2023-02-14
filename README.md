@@ -7,7 +7,7 @@ Additionally, a [CI/CD pipeline](.github/workflows/ci-cd.yml) was built with the
 
 ## CI/CD Pipeline
 The CI/CD pipeline was divided into 3 stages:
-1. `npm-test`: unit test the latest code code changes using NPM.
+1. `npm-test`: unit test the latest code code changes using NPM and _mocha_.
     ```sh
     $ npm run test
     > mocha services/**/test/*.js
@@ -21,7 +21,6 @@ The CI/CD pipeline was divided into 3 stages:
     subtraction
         ✔ 1 - 1 should be 0
     ```
-
 2. `push-to-docker-hub`: build & push microservices images to Docker Hub using _docker-compose_.
 3. `deploy-to-aks`: deploy the latest version of the application to an AKS cluster using Azure CLI and _kubectl_. 
 
