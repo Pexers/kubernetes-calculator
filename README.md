@@ -1,5 +1,5 @@
 # Kubernetes Calculator 🧮
-The Calculator application takes advantage of a microservice architecture to provide an API that resolves mathematical expressions. The available mathematical expression microservices are the _addition_, _subtraction_, _multiplication_ and _division_.
+The Calculator application takes advantage of a microservice architecture to provide an API that solves mathematical expressions. The available mathematical expression microservices are the _addition_, _subtraction_, _multiplication_ and _division_.
 
 Additionally, a [CI/CD pipeline](.github/workflows/ci-cd.yml) was built with the help of GitHub Actions in order to automate the integration of software changes quickly and reliably into a Kubernetes Cluster deployed to Azure Kubernetes Service (AKS).
 
