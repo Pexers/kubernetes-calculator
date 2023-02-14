@@ -27,6 +27,8 @@ jobs:
     container:
       image: docker:latest
     steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
     - name: Login to Docker
       run: docker login --username ${{ secrets.DOCKER_USER }} --password ${{ secrets.DOCKER_PWD }}
     - name: Build & Push services
