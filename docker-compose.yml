@@ -7,7 +7,7 @@ services:
     build:
       context: services/calculator
       dockerfile: Dockerfile
-    image: pexers/calculator
+    image: "pexers/calculator:${TAG}"
     ports:
       - 80:80
     links:  # Avoids to write hardcoded HTTP ports in calculator service
@@ -23,7 +23,7 @@ services:
     build:
       context: services/addition
       dockerfile: Dockerfile
-    image: pexers/addition
+    image: "pexers/addition:${TAG}"
     ports:
       - 3000:80
 
@@ -34,7 +34,7 @@ services:
     build:
       context: services/division
       dockerfile: Dockerfile
-    image: pexers/division
+    image: "pexers/division:${TAG}"
     ports:
       - 3001:80
       
@@ -45,7 +45,7 @@ services:
     build:
       context: services/multiplication
       dockerfile: Dockerfile
-    image: pexers/multiplication
+    image: "pexers/multiplication:${TAG}"
     ports:
       - 3002:80
       
@@ -56,6 +56,6 @@ services:
     build:
       context: services/subtraction
       dockerfile: Dockerfile
-    image: pexers/subtraction
+    image: "pexers/subtraction:${TAG}"
     ports:
       - 3003:80
